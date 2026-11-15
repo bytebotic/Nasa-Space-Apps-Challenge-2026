@@ -1,0 +1,179 @@
+/* ============================================================
+   components.css — nav, buttons, pills, chips, cards
+   ============================================================ */
+
+/* ---------- the shell: holds nav + the active view ---------- */
+.shell {
+  position: relative;
+  z-index: 10;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: inset var(--t-med), border-radius var(--t-med),
+              background-color var(--t-med), border-color var(--t-med),
+              box-shadow var(--t-med), margin var(--t-med);
+  border: 1px solid transparent;
+  border-radius: 0;
+}
+
+/* on Planet Brief the shell contracts into a floating rounded card,
+   so the nav sits inside it — exactly as in the design video */
+.shell.as-card {
+  margin: 18px;
+  min-height: calc(100vh - 36px);
+  border-radius: var(--r-xl);
+  background: var(--panel-solid);
+  border-color: var(--border);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+/* ---------- nav bar ---------- */
+.nav {
+  flex: 0 0 auto;
+  height: var(--nav-h);
+  padding: 0 var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  font-family: var(--font);
+  text-align: left;
+  padding: 6px 8px 6px 0;
+  border-radius: var(--r-sm);
+}
+.brand:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.brand .mark { width: 46px; height: 46px; flex: 0 0 auto; }
+.brand .rule {
+  width: 1px; height: 38px;
+  background: var(--border-strong);
+  transition: background var(--t-slow);
+}
+.brand .words { display: flex; flex-direction: column; gap: 1px; }
+.brand .name {
+  font-size: 19px; font-weight: 700; letter-spacing: .055em;
+  color: var(--text); transition: color var(--t-slow);
+}
+.brand .tag {
+  font-size: 12.5px; font-weight: 400; letter-spacing: .005em;
+  color: var(--text-muted); transition: color var(--t-slow);
+}
+.brand:hover .mark { transform: rotate(-8deg) scale(1.04); }
+.brand .mark { transition: transform var(--t-fast); }
+
+.nav-links { display: flex; align-items: center; gap: 34px; }
+.nav-link {
+  position: relative;
+  background: none; border: 0; cursor: pointer;
+  font-family: var(--font); font-size: 15.5px; font-weight: 500;
+  color: var(--text-muted);
+  padding: 8px 2px;
+  transition: color var(--t-fast);
+}
+.nav-link:hover { color: var(--text); }
+.nav-link.is-active { color: var(--text); font-weight: 600; }
+.nav-link.is-active::after {
+  content: '';
+  position: absolute; left: 0; right: 0; bottom: 0;
+  height: 2.5px; border-radius: 2px;
+  background: var(--accent-strong);
+}
+
+/* ---------- buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: 12px;
+  font-family: var(--font); font-size: 17px; font-weight: 600;
+  padding: 16px 30px;
+  border-radius: var(--r-pill);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform var(--t-fast), box-shadow var(--t-fast),
+              background-color var(--t-slow), color var(--t-slow), opacity var(--t-fast);
+  white-space: nowrap;
+}
+.btn .arrow { transition: transform var(--t-fast); }
+.btn:hover .arrow { transform: translateX(4px); }
+.btn:active { transform: translateY(1px) scale(.995); }
+
+.btn-primary {
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .28);
+}
+.btn-primary:hover { box-shadow: 0 14px 38px rgba(0, 0, 0, .36); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--btn-ghost-text);
+  padding: 14px 10px;
+  font-size: 15.5px; font-weight: 500;
+}
+.btn-ghost:hover { color: var(--text); }
+
+.btn-outline {
+  background: var(--panel);
+  color: var(--text);
+  border-color: var(--border-strong);
+  backdrop-filter: blur(8px);
+}
+.btn-outline:hover { border-color: var(--accent); }
+
+/* ---------- title pill (the outlined rounded label) ---------- */
+.title-pill {
+  display: inline-flex; align-items: center; gap: 18px;
+  padding: 12px 34px 12px 14px;
+  border-radius: var(--r-pill);
+  border: 1.5px solid var(--border-strong);
+  background: var(--panel);
+  backdrop-filter: blur(10px);
+  transition: border-color var(--t-slow), background-color var(--t-slow);
+}
+.title-pill img { width: 46px; height: 46px; border-radius: 50%; }
+.title-pill .divider {
+  width: 1.5px; height: 34px; background: var(--border-strong);
+  transition: background var(--t-slow);
+}
+.title-pill .pill-text {
+  font-size: clamp(28px, 3vw, 40px); font-weight: 700; letter-spacing: -.02em;
+}
+
+/* ---------- stat chips ---------- */
+.chips { display: flex; gap: 16px; flex-wrap: wrap; }
+.chip {
+  flex: 1 1 0; min-width: 128px;
+  padding: 18px 14px 16px;
+  border-radius: var(--r-md);
+  background: var(--panel);
+  border: 1px solid var(--border);
+  text-align: center;
+  backdrop-filter: blur(8px);
+  transition: border-color var(--t-fast), transform var(--t-fast),
+              background-color var(--t-slow);
+}
+.chip:hover { transform: translateY(-3px); border-color: var(--border-strong); }
+/* icons are inline SVG and inherit the theme's ink, so they can never
+   fail to load and are always visible on light and dark themes alike */
+.chip .chip-icon {
+  display: block;
+  line-height: 0;
+  margin: 0 auto 10px;
+  color: var(--icon-ink);
+  transition: color var(--t-slow);
+}
+.chip .chip-icon svg { width: 26px; height: 24px; }
+.chip .chip-label {
+  display: block; font-size: 12.5px; color: var(--text-muted);
+  margin-bottom: 4px; transition: color var(--t-slow);
+}
+.chip .chip-value { display: block; font-size: 17px; font-weight: 700; line-height: 1.25; }
+
+/* ---------- sparkle icon used in the starfield ---------- */
+.spark-def { position: absolute; width: 0; height: 0; }

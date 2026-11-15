@@ -1,0 +1,122 @@
+/* ============================================================
+   search.css — the "find a place on Earth" step
+   ============================================================ */
+
+.search-view {
+  min-height: calc(100vh - var(--nav-h));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 36px var(--gutter) 240px;
+}
+.search-view .title { margin-bottom: 12px; }
+.search-view .subtitle { margin-bottom: 34px; }
+.search-view code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: .92em;
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: var(--panel-hi);
+  border: 1px solid var(--border);
+}
+
+/* ---------- target profile picker ---------- */
+.profile-picker { margin-bottom: 30px; width: 100%; max-width: 720px; }
+.picker-label {
+  display: block;
+  font-size: 12px; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--text-dim); margin-bottom: 12px;
+}
+.profile-chips { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.profile-chip {
+  flex: 1 1 260px; max-width: 330px;
+  text-align: left;
+  padding: 14px 18px;
+  border-radius: var(--r-md);
+  background: var(--panel);
+  border: 1.5px solid var(--border);
+  cursor: pointer;
+  font-family: var(--font);
+  backdrop-filter: blur(8px);
+  transition: border-color var(--t-fast), transform var(--t-fast), background-color var(--t-fast);
+}
+.profile-chip:hover { transform: translateY(-2px); border-color: var(--border-strong); }
+.profile-chip.is-on { border-color: var(--accent); background: var(--panel-hi); }
+.profile-chip .pc-name {
+  display: block; font-size: 15.5px; font-weight: 600; color: var(--text); margin-bottom: 3px;
+}
+.profile-chip .pc-desc { display: block; font-size: 13px; color: var(--text-muted); line-height: 1.45; }
+
+/* ---------- search box ---------- */
+.search-box {
+  position: relative;
+  width: 100%; max-width: 620px;
+  display: flex; align-items: center; gap: 14px;
+  padding: 6px 8px 6px 22px;
+  border-radius: var(--r-pill);
+  background: var(--panel);
+  border: 1.5px solid var(--border-strong);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow);
+  transition: border-color var(--t-fast);
+}
+.search-box:focus-within { border-color: var(--accent); }
+.search-icon { color: var(--text-dim); flex: 0 0 auto; }
+.search-box input {
+  flex: 1 1 auto;
+  background: none; border: 0; outline: none;
+  font-family: var(--font); font-size: 18px; color: var(--text);
+  padding: 16px 0;
+}
+.search-box input::placeholder { color: var(--text-dim); }
+.search-clear {
+  flex: 0 0 auto;
+  width: 34px; height: 34px; margin-right: 8px;
+  border: 0; border-radius: 50%;
+  background: var(--panel-hi); color: var(--text-muted);
+  font-size: 20px; line-height: 1; cursor: pointer;
+}
+.search-clear:hover { color: var(--text); }
+
+/* ---------- suggestions ---------- */
+.suggestions {
+  position: absolute; left: 0; right: 0; top: calc(100% + 10px);
+  z-index: 30;
+  padding: 8px;
+  border-radius: var(--r-lg);
+  background: var(--panel-solid);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  text-align: left;
+  overflow: hidden;
+  animation: sugIn 180ms ease both;
+}
+@keyframes sugIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+.suggestion {
+  display: flex; flex-direction: column; gap: 2px;
+  width: 100%; padding: 12px 16px;
+  border: 0; border-radius: var(--r-sm);
+  background: none; cursor: pointer; text-align: left;
+  font-family: var(--font);
+}
+.suggestion:hover, .suggestion.is-active { background: var(--panel-hi); }
+.suggestion.is-active { box-shadow: inset 2.5px 0 0 var(--accent); }
+.sug-name { font-size: 16px; font-weight: 600; color: var(--text); }
+.sug-meta { font-size: 13px; color: var(--text-muted); }
+
+.search-hint {
+  min-height: 22px;
+  margin-top: 18px;
+  font-size: 14px; color: var(--text-dim);
+}
+.back-link { margin-top: 26px; }
+
+@media (max-width: 900px) {
+  .search-view { padding-bottom: 200px; }
+  .profile-chip { flex: 1 1 100%; }
+  .search-box input { font-size: 16px; }
+}
+
+/* skeletons while the target profiles load from /targets */
+.profile-chips .sk-box { max-width: 330px; flex: 1 1 260px; margin-bottom: 0; }

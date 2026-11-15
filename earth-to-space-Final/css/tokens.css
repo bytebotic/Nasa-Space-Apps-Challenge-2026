@@ -1,0 +1,169 @@
+/* ============================================================
+   tokens.css — every colour, size and timing in the project.
+   Change a value here and it changes everywhere.
+   Three themes: space (navy) / mars (rust) / moon (light grey)
+   ============================================================ */
+
+@font-face {
+  font-family: 'Outfit';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('../fonts/outfit-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215;
+}
+@font-face {
+  font-family: 'Outfit';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('../fonts/outfit-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+1E00-1E9F, U+2020-20AB;
+}
+
+:root {
+  --font: 'Outfit', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* radii */
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 22px;
+  --r-xl: 30px;
+  --r-pill: 999px;
+
+  /* layout */
+  --maxw: 1200px;
+  --gutter: 48px;
+  --nav-h: 86px;
+
+  /* motion */
+  --t-fast: 220ms cubic-bezier(.4, 0, .2, 1);
+  --t-med: 620ms cubic-bezier(.4, 0, .2, 1);
+  --t-slow: 1500ms cubic-bezier(.45, 0, .2, 1);
+
+  /* data colours — used by the radar chart on Comparison */
+  --earth: #4ade80;
+  --earth-ink: #2f6b45;
+  --mars-data: #c08259;
+  --moon-data: #9aa3b6;
+}
+
+/* ---------------- SPACE (navy) — Home + Target Select ---------------- */
+html[data-theme='space'] {
+  --bg: #0b1226;
+  --bg-grad: radial-gradient(130% 100% at 50% 6%, #1a2744 0%, #0e1830 38%, #070b18 100%);
+  --surface-img: none;
+  --surface-op: 0;
+
+  --panel: rgba(17, 27, 51, .66);
+  --panel-solid: #101a31;
+  --panel-hi: rgba(134, 168, 255, .07);
+  --border: rgba(134, 168, 255, .16);
+  --border-strong: rgba(134, 168, 255, .30);
+
+  --text: #eef2fb;
+  --text-muted: #a3aec8;
+  --text-dim: #6f7c9b;
+
+  --accent: #86a8ff;
+  --accent-strong: #3d7bff;
+
+  --btn-bg: #e9eefb;
+  --btn-text: #0f1a33;
+  --btn-ghost-text: #a3aec8;
+
+  --logo-blue: #3d7bff;
+  --logo-grey: #b7bbc4;
+
+  --star: #dbe5ff;
+  --orbit: rgba(150, 180, 255, .13);
+
+  --ground-img: url('../assets/ground-earth.png');
+  --ground-ar: 3328 / 468;
+  --ground-glow: 0 -26px 90px rgba(70, 135, 255, .20);
+  --icon-ink: #ffffff;
+
+  --shadow: 0 24px 60px rgba(0, 0, 0, .45);
+  color-scheme: dark;
+}
+
+/* ---------------- MARS (rust) ---------------- */
+html[data-theme='mars'] {
+  --bg: #18110d;
+  --bg-grad: radial-gradient(130% 100% at 50% 10%, #35241b 0%, #1d1511 45%, #0b0807 100%);
+  --surface-img: url('../assets/surface-mars.jpg');
+  --surface-op: .5;
+
+  --panel: rgba(42, 30, 24, .76);
+  --panel-solid: #1c1410;
+  --panel-hi: rgba(214, 179, 152, .06);
+  --border: rgba(214, 179, 152, .18);
+  --border-strong: rgba(214, 179, 152, .38);
+
+  --text: #f1e6db;
+  --text-muted: #b8a392;
+  --text-dim: #8a7667;
+
+  --accent: #c08259;
+  --accent-strong: #d6b398;
+
+  --btn-bg: #8a5a3c;
+  --btn-text: #fdf3ea;
+  --btn-ghost-text: #b8a392;
+
+  --logo-blue: #4b86ff;
+  --logo-grey: #b7bbc4;
+
+  --star: #f2d6c2;
+  --orbit: rgba(214, 179, 152, .16);
+
+  --ground-img: url('../assets/ground-mars.png');
+  --ground-ar: 3328 / 426;
+  --icon-ink: #e6cdb8;
+  --ground-glow: 0 -18px 60px rgba(160, 90, 50, .20);
+
+  --shadow: 0 24px 60px rgba(0, 0, 0, .55);
+  color-scheme: dark;
+}
+
+/* ---------------- MOON (light) ----------------
+   Not flat white: a soft grey gradient + the lunar surface texture
+   at low opacity, mirroring how the Mars theme is built. */
+html[data-theme='moon'] {
+  --bg: #e9edf5;
+  --bg-grad: radial-gradient(130% 100% at 50% 4%, #fdfdff 0%, #eef1f7 44%, #d8dde9 100%);
+  --surface-img: url('../assets/surface-moon.jpg');
+  --surface-op: .34;
+
+  --panel: rgba(255, 255, 255, .72);
+  --panel-solid: #f6f8fc;
+  --panel-hi: rgba(70, 83, 110, .04);
+  --border: rgba(70, 83, 110, .14);
+  --border-strong: rgba(70, 83, 110, .30);
+
+  --text: #2a3142;
+  --text-muted: #6d788f;
+  --text-dim: #99a2b4;
+
+  --accent: #46536e;
+  --accent-strong: #2a3142;
+
+  --btn-bg: #27304a;
+  --btn-text: #f5f7fb;
+  --btn-ghost-text: #6d788f;
+
+  --logo-blue: #2f65e1;
+  --logo-grey: #8b8b8b;
+
+  --star: #aab3c6;
+  --orbit: rgba(70, 83, 110, .16);
+
+  --ground-img: url('../assets/ground-moon.png');
+  --ground-ar: 3328 / 426;
+  --icon-ink: #5b6782;
+  --ground-glow: 0 -18px 60px rgba(120, 135, 165, .18);
+
+  --shadow: 0 24px 60px rgba(40, 50, 70, .14);
+  color-scheme: light;
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="space">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Earth-to-Space — Test space from Earth</title>
+<meta name="description" content="Find the best Earth locations that resemble the Moon or Mars.">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/views.css">
+<link rel="stylesheet" href="css/search.css">
+<link rel="stylesheet" href="css/compare.css">
+<link rel="stylesheet" href="css/team.css">
+</head>
+<body>
+
+  <!-- ===== background layers ===== -->
+  <div class="bg-layer bg-grad" id="bgGrad"></div>
+  <div class="bg-layer bg-grad" id="bgGradPrev" style="opacity:0"></div>
+  <div class="bg-layer bg-surface" id="bgSurface"></div>
+  <div class="bg-layer bg-orbits" id="bgOrbits"></div>
+  <div class="bg-layer bg-stars" id="bgStars"></div>
+  <div class="bg-layer bg-vignette"></div>
+
+  <!-- ===== ground / horizon ===== -->
+  <div class="ground" id="ground"></div>
+  <div class="ground" id="groundPrev" style="opacity:0"></div>
+
+  <!-- ===== shell: nav + active view ===== -->
+  <div class="shell" id="shell">
+
+    <nav class="nav">
+      <button class="brand" id="brand" aria-label="Earth-to-Space, go to home"></button>
+      <div class="nav-links">
+        <button class="nav-link" data-route="#team">Team</button>
+      </div>
+    </nav>
+
+    <main id="viewHost"></main>
+
+  </div>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

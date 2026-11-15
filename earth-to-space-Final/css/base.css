@@ -1,0 +1,122 @@
+/* ============================================================
+   base.css — reset, page background layers, typography
+   ============================================================ */
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+html, body { min-height: 100%; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  transition: background-color var(--t-slow), color var(--t-slow);
+}
+
+/* --- background layers (fixed, behind everything) --- */
+.bg-layer { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+
+/* gradient wash */
+.bg-grad {
+  background: var(--bg-grad);
+  transition: background var(--t-slow);
+}
+
+/* planetary surface texture — only Mars/Moon themes define one */
+.bg-surface {
+  background-image: var(--surface-img);
+  background-size: cover;
+  background-position: center;
+  opacity: var(--surface-op);
+  mix-blend-mode: overlay;
+  transition: opacity var(--t-slow), background-image var(--t-slow);
+}
+
+/* vignette so the edges settle down */
+.bg-vignette {
+  background: radial-gradient(120% 100% at 50% 40%, transparent 42%, rgba(0, 0, 0, .28) 100%);
+  opacity: .9;
+}
+html[data-theme='moon'] .bg-vignette {
+  background: radial-gradient(120% 100% at 50% 40%, transparent 45%, rgba(90, 100, 125, .16) 100%);
+}
+
+/* --- starfield + orbit arcs --- */
+.bg-stars { z-index: 1; }
+.bg-stars .star {
+  position: absolute;
+  fill: var(--star);
+  opacity: 0;
+  animation: twinkle var(--dur, 5s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+  transition: fill var(--t-slow);
+}
+@keyframes twinkle {
+  0%, 100% { opacity: calc(var(--op, .5) * .35); transform: scale(.88); }
+  50%      { opacity: var(--op, .5);             transform: scale(1); }
+}
+.bg-orbits { z-index: 1; }
+.bg-orbits svg { width: 100%; height: 100%; }
+.bg-orbits ellipse, .bg-orbits circle {
+  fill: none;
+  stroke: var(--orbit);
+  stroke-width: 1.2;
+  transition: stroke var(--t-slow);
+}
+
+/* --- the ground / horizon strip pinned to the bottom --- */
+.ground {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  width: 112vw;
+  min-width: 1180px;
+  transform: translateX(-50%);
+  /* the height follows the artwork's own proportions, so the limb is never
+     stretched — that stretching is what made it look pixelated */
+  aspect-ratio: var(--ground-ar);
+  height: auto;
+  background-image: var(--ground-img);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  filter: drop-shadow(var(--ground-glow));
+  pointer-events: none;
+  z-index: 2;
+  transition: filter var(--t-slow);
+}
+/* cross-fading layer used during the planet transition */
+.ground.ground-next { opacity: 0; transition: opacity var(--t-slow); }
+.ground.ground-next.show { opacity: 1; }
+
+/* --- typography --- */
+h1, h2, h3 { font-weight: 700; letter-spacing: -.02em; line-height: 1.08; }
+p { line-height: 1.6; }
+
+.display {
+  font-size: clamp(42px, 6.4vw, 86px);
+  font-weight: 800;
+  letter-spacing: -.035em;
+}
+.title { font-size: clamp(30px, 3.6vw, 46px); font-weight: 700; }
+.subtitle {
+  font-size: clamp(15px, 1.25vw, 19px);
+  color: var(--text-muted);
+  font-weight: 400;
+  transition: color var(--t-slow);
+}
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+::selection { background: var(--accent); color: var(--bg); }
+
+/* scrollbar */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 99px; }
+::-webkit-scrollbar-track { background: transparent; }
